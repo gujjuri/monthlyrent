@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Apps Script Wrapper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>GAS Project Interface</h1>
+    <p>Enter some data to interact with the Google Apps Script:</p>
+    
+    <input type="text" id="userInput" placeholder="Enter something...">
+    <button onclick="sendData()">Submit</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function sendData() {
+            let inputValue = document.getElementById("userInput").value;
+            let scriptUrl = "https://script.google.com/macros/s/AKfycbxG-JIimYD58LTuH9SQAaQsorPEml7PCW-ZABp5X_aKgnwgqFBRJjiXpJZL0clH1RBVPA/exec";
+            
+            fetch(scriptUrl + "?input=" + encodeURIComponent(inputValue))
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("result").innerText = "Response: " + data;
+                })
+                .catch(error => {
+                    document.getElementById("result").innerText = "Error: " + error;
+                });
+        }
+    </script>
+
+</body>
+</html>
